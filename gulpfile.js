@@ -1,5 +1,4 @@
 var gulp = require('gulp');
-var debug = require('gulp-debug');
 var svgSprite = require('gulp-svg-sprite');
 
 var project = {
@@ -14,33 +13,33 @@ var project = {
  * Generate the SVG sprite.
  */
 gulp.task('generate-svg-sprite', function() {
-  return gulp.src(project.spriteSource)
-  .pipe(debug({title: 'unicorn:', minimal: false}))
-  .pipe(svgSprite({
-    shape: {
-      spacing: {
-        padding: 5
-      }
-    },
-    mode: {
-      css: {
-        dest: "./",
-        layout: "diagonal",
-        sprite: project.spriteDestination,
-        bust: false,
-        render: {
-          scss: {
-            dest: project.spriteScssDestination,
-            template: project.spriteTemplate
+  return gulp
+    .src(project.spriteSource)
+    .pipe(svgSprite({
+        shape: {
+          spacing: {
+            padding: 5
           }
+        },
+        mode: {
+          css: {
+            dest: './',
+            layout: 'diagonal',
+            sprite: project.spriteDestination,
+            bust: false,
+            render: {
+              scss: {
+                dest: project.spriteScssDestination,
+                template: project.spriteTemplate
+              }
+            }
+          }
+        },
+        variables: {
+          mapname: 'icons'
         }
-      }
-    },
-    variables: {
-      mapname: "icons"
-    }
-  }))
-  .pipe(gulp.dest('./'));
+      }))
+    .pipe(gulp.dest('./'));
 });
 
 /**
